@@ -1,24 +1,29 @@
 #' @title
 #' Setup and Maintain ClinicalTrial.gov `aact` Postgres Database
 #'
-#' @inherit clinicaltrialsgov_functions description
-#' @inheritSection clinicaltrialsgov_functions AACT Database
-#'
-#' @return
-#' A `aact` Postgres Database if one did not previously exist with a populated `ctgov` schema and a log of the source file and timestamp in the `public.update_log` Table.
+#' @description
+#' The `aact` Postgres database instance is available for download at \url{https://aact.ctti-clinicaltrials.org/}. Technical documentation on the AACT Database instantiation can be found at \url{https://aact.ctti-clinicaltrials.org/snapshots}. Documentation on database structure and naming conventions can be found at \url{https://aact.ctti-clinicaltrials.org/schema}.
 #'
 #' @seealso
-#'  \code{\link[police]{try_catch_error_as_null}}
+#'  \code{\link[cli]{cat_line}}
+#'  \code{\link[rlang]{parse_expr}}
+#'  \code{\link[pg13]{dc}},\code{\link[pg13]{brake_closed_conn}},\code{\link[pg13]{lsSchema}},\code{\link[pg13]{table_exists}},\code{\link[pg13]{send}},\code{\link[pg13]{appendTable}}
 #'  \code{\link[httr]{with_config}},\code{\link[httr]{c("add_headers", "authenticate", "config", "config", "set_cookies", "timeout", "use_proxy", "user_agent", "verbose")}},\code{\link[httr]{GET}},\code{\link[httr]{content}}
 #'  \code{\link[rvest]{html_nodes}},\code{\link[rvest]{html_text}}
+#'  \code{\link[secretary]{c("typewrite", "typewrite")}},\code{\link[secretary]{character(0)}}
 #'  \code{\link[curl]{handle}},\code{\link[curl]{curl_download}}
-#'  \code{\link[pg13]{query}},\code{\link[pg13]{createDB}},\code{\link[pg13]{localConnect}},\code{\link[pg13]{lsTables}},\code{\link[pg13]{appendTable}},\code{\link[pg13]{writeTable}},\code{\link[pg13]{dc}}
+#'  \code{\link[tibble]{tibble}}
 #' @rdname run_aact_db
 #' @export
+#' @importFrom cli cat_line cat_rule
+#' @importFrom rlang parse_expr
+#' @importFrom pg13 dc brake_closed_conn lsSchema table_exists send appendTable
 #' @importFrom httr with_config config GET content
 #' @importFrom rvest html_nodes html_children html_text
+#' @importFrom secretary typewrite enbold
 #' @importFrom curl new_handle curl_download
-#' @importFrom pg13 query createDB localConnect lsTables appendTable writeTable dc brake_closed_conn
+#' @importFrom tibble tibble
+
 
 
 run_aact_db <-
@@ -45,7 +50,6 @@ run_aact_db <-
                         cli::cat_line()
                         cli::cat_rule("Check Connection")
                 }
-
 
                 pg13::brake_closed_conn(conn = conn)
 
