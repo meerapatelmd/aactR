@@ -1,6 +1,6 @@
 # aactR Package  
 
-Setup and query a local AACT Database based on the instructions [https://aact.ctti-clinicaltrials.org/snapshots]{https://aact.ctti-clinicaltrials.org/snapshots}. Learn more about the ClinicalTrials.gov AACT Database at [here]{https://aact.ctti-clinicaltrials.org/}.     
+Setup and query a local AACT Database based on the instructions found at https://aact.ctti-clinicaltrials.org/snapshots. Learn more about the ClinicalTrials.gov AACT Database at https://aact.ctti-clinicaltrials.org/.     
 
 
 # Installation  
