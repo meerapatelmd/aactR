@@ -1,6 +1,12 @@
-# aactR Package 
+# aactR Package  
 
-Setup and query the AACT Database.  
+Setup and query a local AACT Database.  
+
+
+## Requirements   
+
+* a local Postgres `aact` database.   
+
 
 ## Code of Conduct
 
