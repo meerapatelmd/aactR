@@ -51,7 +51,16 @@ run_aact_db <-
                         cli::cat_rule("Check Connection")
                 }
 
-                pg13::brake_closed_conn(conn = conn)
+                if (pg13::is_conn_open(conn = conn)) {
+
+                        cli::cli_alert_success("Valid connection")
+
+                } else {
+
+                        cli::cli_alert_danger("Invalid connection")
+                        stop(call. = FALSE)
+
+                }
 
 
                 if (verbose) {
@@ -60,7 +69,10 @@ run_aact_db <-
                 }
 
                 # Reading ACCT Page with crawl delay
-                Sys.sleep(5)
+                sp <- cli::make_spinner()
+                lapply(1:5, function(x) { sp$spin(); Sys.sleep(1) })
+                sp$finish()
+
                 aact_page <-
                         tryCatch(
                                 httr::with_config(
@@ -104,6 +116,8 @@ run_aact_db <-
                 }
 
 
+
+
                 if (verbose) {
                         cli::cat_line()
                         cli::cat_rule("Unzip File Archive")
@@ -112,6 +126,22 @@ run_aact_db <-
 
                 # Unzip
                 files <- unzip(file_archive)
+
+
+
+                # Remove files on exit
+                on.exit(
+                        if (verbose) {
+                                cli::cat_line()
+                                cli::cat_rule("Remove Files")
+                        },
+                        add = TRUE)
+
+                on.exit(# Remove all files
+                        file.remove(files,
+                                    file_archive),
+                        after = TRUE,
+                        add = TRUE)
 
 
                 # Check for a fresh database by schema count and tables
@@ -172,15 +202,6 @@ run_aact_db <-
                                                 update_datetime = Sys.time(),
                                                 file_archive_zip = file_archive
                                   ))
-
-                if (verbose) {
-                        cli::cat_line()
-                        cli::cat_rule("Remove Files")
-                }
-
-                # Remove all files
-                file.remove(files,
-                            file_archive)
 
 
         }
