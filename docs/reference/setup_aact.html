@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup and Maintain ClinicalTrial.gov aact Postgres Database — run_aact_db • aactR</title>
+<title>Setup AACT — setup_aact • aactR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Setup and Maintain ClinicalTrial.gov aact Postgres Database — run_aact_db" />
-<meta property="og:description" content="The aact Postgres database instance is available for download at https://aact.ctti-clinicaltrials.org/. Technical documentation on the AACT Database instantiation can be found at https://aact.ctti-clinicaltrials.org/snapshots. Documentation on database structure and naming conventions can be found at https://aact.ctti-clinicaltrials.org/schema." />
+<meta property="og:title" content="Setup AACT — setup_aact" />
+<meta property="og:description" content="Setup AACT for the first time." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">aactR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -111,16 +111,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup and Maintain ClinicalTrial.gov <code>aact</code> Postgres Database</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/aactR/blob/master/R/run.R'><code>R/run.R</code></a></small>
-    <div class="hidden name"><code>run_aact_db.Rd</code></div>
+    <h1>Setup AACT</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/aactR/blob/master/R/instance.R'><code>R/instance.R</code></a></small>
+    <div class="hidden name"><code>setup_aact.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>aact</code> Postgres database instance is available for download at <a href='https://aact.ctti-clinicaltrials.org/'>https://aact.ctti-clinicaltrials.org/</a>. Technical documentation on the AACT Database instantiation can be found at <a href='https://aact.ctti-clinicaltrials.org/snapshots'>https://aact.ctti-clinicaltrials.org/snapshots</a>. Documentation on database structure and naming conventions can be found at <a href='https://aact.ctti-clinicaltrials.org/schema'>https://aact.ctti-clinicaltrials.org/schema</a>.</p>
+    <p>Setup AACT for the first time.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_aact_db</span><span class='op'>(</span><span class='va'>conn</span>, <span class='va'>conn_fun</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, render_sql <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>setup_aact</span><span class='op'>(</span><span class='va'>conn</span>, <span class='va'>conn_fun</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, render_sql <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
