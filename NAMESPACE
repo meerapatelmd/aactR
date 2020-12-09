@@ -3,6 +3,7 @@
 export("%>%")
 export(":=")
 export(.data)
+export(aggregate_interventions)
 export(as_label)
 export(as_name)
 export(enquo)
