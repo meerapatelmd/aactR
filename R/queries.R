@@ -9,8 +9,6 @@
 #' @export
 #' @importFrom pg13 query
 
-
-
 aggregate_interventions <-
         function(conn,
                  verbose = TRUE,
