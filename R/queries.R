@@ -7,6 +7,7 @@
 #'
 #' @rdname aggregate_interventions
 #' @export
+#' @importFrom pg13 query
 
 
 
