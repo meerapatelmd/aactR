@@ -13,7 +13,7 @@
 #'  \code{\link[secretary]{c("typewrite", "typewrite")}},\code{\link[secretary]{character(0)}}
 #'  \code{\link[curl]{handle}},\code{\link[curl]{curl_download}}
 #'  \code{\link[tibble]{tibble}}
-#' @rdname run_aact_db
+#' @rdname update_aact
 #' @export
 #' @importFrom cli cat_line cat_rule
 #' @importFrom rlang parse_expr
@@ -26,7 +26,7 @@
 
 
 
-run_aact_db <-
+update_aact <-
         function(conn,
                  conn_fun,
                  verbose = TRUE,
@@ -128,22 +128,6 @@ run_aact_db <-
                 files <- unzip(file_archive)
 
 
-
-                # Remove files on exit
-                on.exit(
-                        if (verbose) {
-                                cli::cat_line()
-                                cli::cat_rule("Remove Files")
-                        },
-                        add = TRUE)
-
-                on.exit(# Remove all files
-                        file.remove(files,
-                                    file_archive),
-                        after = TRUE,
-                        add = TRUE)
-
-
                 # Check for a fresh database by schema count and tables
                 if (!("ctgov" %in% pg13::lsSchema(conn = conn))) {
 
@@ -202,6 +186,50 @@ run_aact_db <-
                                                 update_datetime = Sys.time(),
                                                 file_archive_zip = file_archive
                                   ))
+
+
+
+
+                # Remove files
+                if (verbose) {
+                        cli::cat_line()
+                        cli::cat_rule("Remove Files")
+                }
+
+                # Remove all files
+                file.remove(files,
+                            file_archive)
+
+
+        }
+
+
+#' @title
+#' Setup AACT
+#'
+#' @description
+#' Setup AACT for the first time.
+#'
+#' @inherit update_aact seealso
+#'
+#' @inheritParams update_aact
+#'
+#' @rdname setup_aact
+#' @export
+
+
+setup_aact <-
+        function(conn,
+                 conn_fun,
+                 verbose = TRUE,
+                 render_sql = TRUE) {
+
+
+                update_aact(conn = conn,
+                            conn_fun = conn_fun,
+                            verbose = verbose,
+                            render_sql = render_sql)
+
 
 
         }
