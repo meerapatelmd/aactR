@@ -1,13 +1,15 @@
 Package: aactR
 Title: R Interface for ClinicalTrials.gov AACT Database
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     person(given = "Meera",
            family = "Patel, MD",
            role = c("aut", "cre"),
            email = "patelmeeray@gmail.com",
            comment = c(ORCID = "0000-0002-3401-3948"))
-Description: Setup and query the AACT Database.
+Description: Setup and query the AACT Database that contains all the 
+    ClinicalTrials.gov data in a structured format. See 
+    https://aact.ctti-clinicaltrials.org/ for more information.  
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
