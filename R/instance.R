@@ -134,71 +134,88 @@ update_aact <-
                         if (verbose) {
                                 cli::cat_line()
                                 cli::cat_rule("Instantiate ctgov Schema")
-                                command <- paste0("pg_restore -e -v -O -x -d aact --no-owner ", getwd(), "/postgres_data.dmp")
-                                secretary::typewrite(secretary::enbold("Command:"), command)
                         }
 
                 } else {
 
                         if (verbose) {
                                 cli::cat_line()
-                                cli::cat_rule("Update ctgov Schema")
-                                command <- paste0("pg_restore -e -v -O -x -d aact --clean --no-owner ", getwd(), "/postgres_data.dmp")
-                                secretary::typewrite(secretary::enbold("Command:"), command)
+                                cli::cat_rule("Drop existing ctgov Schema")
 
+                                pg13::dropCascade(conn = conn,
+                                                 schema = "ctgov")
                         }
                 }
 
-                system(command = command)
+                command <- paste0("pg_restore -e -v -O -x -d aact --no-owner ", getwd(), "/postgres_data.dmp")
+                secretary::typewrite(secretary::enbold("Command:"), command)
 
 
-                if (verbose) {
-                        cli::cat_line()
-                        cli::cat_rule("Log Activity")
+                # If the response is `character(0)`, there were no errors thrown
+                response <- system(command = command,
+                                   intern = TRUE)
+                response_len <- length(response)
+
+
+                if (response_len == 0) {
+
+
+                        if (verbose) {
+                                cli::cli_alert_success("Update complete")
+                                cli::cat_line()
+                                cli::cat_rule("Log Activity")
+                        }
+
+
+                        log_exists <- pg13::table_exists(conn = conn,
+                                           schema = "public",
+                                           tableName = "aact_log")
+
+
+                        if (!log_exists) {
+
+                                pg13::send(
+                                        conn = conn,
+                                        sql_statement =
+                                                "
+                                                CREATE TABLE public.aact_log (
+                                                        update_datetime TIMESTAMP without TIME ZONE,
+                                                        file_archive_zip VARCHAR(255)
+                                                );
+                                                ",
+                                        verbose = verbose,
+                                        render_sql = render_sql
+                                )
+                        }
+
+                        pg13::appendTable(conn = conn,
+                                          schema = "public",
+                                          tableName = "aact_log",
+                                          data = tibble::tibble(
+                                                        update_datetime = Sys.time(),
+                                                        file_archive_zip = file_archive
+                                          ))
+
+
+
+
+                        # Remove files
+                        if (verbose) {
+                                cli::cat_line()
+                                cli::cat_rule("Remove Files")
+                        }
+
+                        # Remove all files
+                        file.remove(files,
+                                    file_archive)
+
+                } else {
+
+                        if (verbose) {
+                        cli::cli_alert_danger("Update failure")
+                        }
+
                 }
-
-
-                log_exists <- pg13::table_exists(conn = conn,
-                                   schema = "public",
-                                   tableName = "aact_log")
-
-
-                if (!log_exists) {
-
-                        pg13::send(
-                                conn = conn,
-                                sql_statement =
-                                        "
-                                        CREATE TABLE public.aact_log (
-                                                update_datetime TIMESTAMP without TIME ZONE,
-                                                file_archive_zip VARCHAR(255)
-                                        );
-                                        ",
-                                verbose = verbose,
-                                render_sql = render_sql
-                        )
-                }
-
-                pg13::appendTable(conn = conn,
-                                  schema = "public",
-                                  tableName = "aact_log",
-                                  data = tibble::tibble(
-                                                update_datetime = Sys.time(),
-                                                file_archive_zip = file_archive
-                                  ))
-
-
-
-
-                # Remove files
-                if (verbose) {
-                        cli::cat_line()
-                        cli::cat_rule("Remove Files")
-                }
-
-                # Remove all files
-                file.remove(files,
-                            file_archive)
 
 
         }
