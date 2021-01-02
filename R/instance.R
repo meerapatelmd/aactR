@@ -169,7 +169,7 @@ update_aact <-
 
                         log_exists <- pg13::table_exists(conn = conn,
                                            schema = "public",
-                                           tableName = "aact_log")
+                                           table_name = "aact_log")
 
 
                         if (!log_exists) {
@@ -188,9 +188,9 @@ update_aact <-
                                 )
                         }
 
-                        pg13::appendTable(conn = conn,
+                        pg13::append_table(conn = conn,
                                           schema = "public",
-                                          tableName = "aact_log",
+                                          table = "aact_log",
                                           data = tibble::tibble(
                                                         update_datetime = Sys.time(),
                                                         file_archive_zip = file_archive
