@@ -1,6 +1,6 @@
 Package: aactR
 Title: R Interface for ClinicalTrials.gov AACT Database
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Meera",
            family = "Patel, MD",
@@ -18,7 +18,17 @@ RoxygenNote: 7.1.1
 URL: https://github.com/meerapatelmd/aactR
 BugReports: https://github.com/meerapatelmd/aactR/issues
 Imports: 
+    cli,
+    curl,
+    httr,
     magrittr,
-    rlang (>= 0.1.2)
+    pg13,
+    rlang (>= 0.1.2),
+    rvest,
+    secretary,
+    tibble
+Remotes: 
+    meerapatemd/pg13,
+    meerapatelmd/secretary
 Suggests: 
     roxygen2

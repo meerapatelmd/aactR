@@ -1,3 +1,8 @@
+# aactR 0.2.0  
+
+* Fixed bug: bad arguments for `pg13` package in `update_aact` at logging endpoint 
+
+
 # aactR 0.1.0  
 
 * Added `aggregate_interventions` and `search_interventions` functions.  
