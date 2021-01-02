@@ -23,12 +23,12 @@ Imports:
     httr,
     magrittr,
     pg13,
-    rlang (>= 0.1.2),
+    rlang,
     rvest,
     secretary,
     tibble
 Remotes: 
-    meerapatemd/pg13,
+    meerapatelmd/pg13,
     meerapatelmd/secretary
 Suggests: 
     roxygen2
